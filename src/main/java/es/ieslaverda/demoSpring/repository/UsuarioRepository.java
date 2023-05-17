@@ -1,8 +1,13 @@
 package es.ieslaverda.demoSpring.repository;
 
+import es.ieslaverda.demoSpring.repository.model.MyDataSource;
 import es.ieslaverda.demoSpring.repository.model.Usuario;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -60,4 +65,22 @@ public class UsuarioRepository implements IUsuarioRepository{
     public List<Usuario> getAllUsuarios() {
         return usuarios;
     }
+
+    public List<Usuario> getAllDBUsuarios() throws SQLException {
+        ArrayList<Usuario> usuariosDB = new ArrayList<>();
+        String query = "SELECT * FROM usuarios";
+
+        try(Connection connection = MyDataSource.getMySQLDataSource().getConnection();
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+            while(rs.next()){
+                usuariosDB.add(Usuario.builder().id(rs.getInt(1)).nombre(rs.getString(2)).apellidos(rs.getString(3)).build());
+            }
+        }
+
+        return usuariosDB;
+    }
+
+
 }

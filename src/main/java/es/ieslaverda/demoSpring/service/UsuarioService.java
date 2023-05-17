@@ -5,6 +5,7 @@ import es.ieslaverda.demoSpring.repository.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -32,6 +33,10 @@ public class UsuarioService {
 
     public List<Usuario> getAllUsuarios(){
         return usuarioRepository.getAllUsuarios();
+    }
+
+    public List<Usuario> getAllDBUsuarios() throws SQLException {
+        return usuarioRepository.getAllDBUsuarios();
     }
 
 
