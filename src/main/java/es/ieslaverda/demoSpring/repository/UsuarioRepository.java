@@ -29,12 +29,21 @@ public class UsuarioRepository implements IUsuarioRepository{
 
     @Override
     public Usuario updateUsuario(Usuario usuario) {
-        return null;
+        Usuario u = getUsuarioById(usuario.getId());
+        if( u != null) {
+            u.setNombre(usuario.getNombre());
+            u.setApellidos(usuario.getApellidos());
+        }
+        return u;
     }
 
     @Override
     public boolean deleteUsuario(int id) {
-        return false;
+        Usuario usuario = getUsuarioById(id);
+        if (usuario==null)
+            return false;
+        usuarios.remove(usuario);
+        return true;
     }
 
     @Override
@@ -49,6 +58,6 @@ public class UsuarioRepository implements IUsuarioRepository{
 
     @Override
     public List<Usuario> getAllUsuarios() {
-        return null;
+        return usuarios;
     }
 }

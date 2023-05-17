@@ -3,7 +3,11 @@ package es.ieslaverda.demoSpring.controller;
 import es.ieslaverda.demoSpring.repository.model.Usuario;
 import es.ieslaverda.demoSpring.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -21,8 +25,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuarios/")
-    public Usuario addUsuario(@RequestBody Usuario usuario){
-        return usuarioService.addUsuario(usuario);
+    public ResponseEntity<?> addUsuario(@RequestBody Usuario usuario){
+        Usuario u = usuarioService.addUsuario(usuario);
+        if (u==null)
+            return new ResponseEntity<>("No se pudo insertar", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(u,HttpStatus.OK);
     }
 
     @PutMapping("/usuarios/")
@@ -33,6 +40,11 @@ public class UsuarioController {
     @DeleteMapping("usuarios/{id}")
     public boolean deleteUsuario(@PathVariable("id") int id){
         return usuarioService.deleteUsuario(id);
+    }
+
+    @GetMapping("/usuarios/")
+    public List<Usuario> getAllUsuarios(){
+        return usuarioService.getAllUsuarios();
     }
 
 
