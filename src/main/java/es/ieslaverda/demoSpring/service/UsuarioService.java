@@ -35,9 +35,4 @@ public class UsuarioService {
         return usuarioRepository.getAllUsuarios();
     }
 
-    public List<Usuario> getAllDBUsuarios() throws SQLException {
-        return usuarioRepository.getAllDBUsuarios();
-    }
-
-
 }

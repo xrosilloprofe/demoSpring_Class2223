@@ -60,18 +60,5 @@ public class UsuarioController {
         return usuarioService.getAllUsuarios();
     }
 
-    @GetMapping("/usuarios/db")
-    public ResponseEntity<?> getAllDBUsuarios(){
-        try {
-            return new ResponseEntity<>(usuarioService.getAllDBUsuarios(),HttpStatus.OK);
-        } catch(SQLException e){
-            Map<String,Object> response = new HashMap<>();
-            response.put("code",e.getErrorCode());
-            response.put("message",e.getMessage());
-            return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
 
 }

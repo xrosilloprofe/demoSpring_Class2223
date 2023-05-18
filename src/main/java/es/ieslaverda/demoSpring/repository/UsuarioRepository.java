@@ -66,21 +66,4 @@ public class UsuarioRepository implements IUsuarioRepository{
         return usuarios;
     }
 
-    public List<Usuario> getAllDBUsuarios() throws SQLException {
-        ArrayList<Usuario> usuariosDB = new ArrayList<>();
-        String query = "SELECT * FROM usuarios";
-
-        try(Connection connection = MyDataSource.getMySQLDataSource().getConnection();
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(query)){
-
-            while(rs.next()){
-                usuariosDB.add(Usuario.builder().id(rs.getInt(1)).nombre(rs.getString(2)).apellidos(rs.getString(3)).build());
-            }
-        }
-
-        return usuariosDB;
-    }
-
-
 }
