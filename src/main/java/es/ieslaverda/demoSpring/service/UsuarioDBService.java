@@ -14,7 +14,23 @@ public class UsuarioDBService {
     @Autowired
     public UsuarioDBRepository repository;
 
-    public List<Usuario> getAllUsuarios() throws SQLException {
+    public Usuario getUsuarioById(int id) throws SQLException {
+        return repository.getUsuarioById(id);
+    }
+
+    public Usuario addUsuario(Usuario usuario) throws SQLException {
+        return repository.addUsuario(usuario);
+    }
+
+    public Usuario updateUsuario(Usuario usuario) throws SQLException {
+        return repository.updateUsuario(usuario);
+    }
+
+    public boolean deleteUsuarioById(int id) throws SQLException {
+        return repository.deleteUsuario(id);
+    }
+
+    public List<Usuario> getAllUsuariosDB() throws SQLException {
         return repository.getAllUsuarios();
     }
 }
